@@ -8,7 +8,9 @@
 #define POINT_SIZE 4
 #define QUALITY 1000
 
-void bezier();
+void bezier(SDL_Renderer*, int, int*, int);
+int triangle(int);
+double distance(int, int, int, int);
 
 int main(int argc, char* argv[])
 {
@@ -89,7 +91,7 @@ int main(int argc, char* argv[])
                     if (selectedPoint < 0)
                     {
                         num++;
-                        int* newPts = SDL_malloc(2 * num * sizeof(int));
+                        int* newPts = (int*) SDL_malloc(2 * num * sizeof(int));
                         if (num <= 1)
                         {
                             points = newPts;
@@ -156,7 +158,7 @@ int main(int argc, char* argv[])
                         if (distance(points[2 * i + 0], points[2 * i + 1], event.button.x, event.button.y) <= POINT_SIZE)
                         {
                             num--;
-                            int* newPts = SDL_malloc(2 * num * sizeof(int));
+                            int* newPts = (int*) SDL_malloc(2 * num * sizeof(int));
                             SDL_memcpy(newPts, points, 2 * i * sizeof(int));
                             if (i < num)
                             {
@@ -198,7 +200,7 @@ void bezier(SDL_Renderer* renderer, int num, int* points, int quality)
 {
     if (num <= 1) return;
     size_t size = triangle(num - 1)*2;
-    float* intermediate = SDL_malloc(size*sizeof(float));
+    float* intermediate = (float*) SDL_malloc(size*sizeof(float));
     float x = points[0];
     float y = points[1];
     for (size_t i = 0; i < quality; i++)
@@ -244,6 +246,6 @@ int triangle(int n) {
     return n*(n + 1) / 2;
 }
 
-int distance(int x1, int y1, int x2, int y2) {
+double distance(int x1, int y1, int x2, int y2) {
     return SDL_sqrt((double)((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)));
 }
