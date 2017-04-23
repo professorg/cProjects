@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#define SDL_MAIN_HANDLED 1
 #include "SDL.h"
 
 #define WINDOW_WIDTH 800
@@ -111,22 +113,22 @@ int main(int argc, char* argv[])
                                 if  (   // If click is in rectangular bounding box between points
                                         (
                                             (
-                                                event.button.x > x1 &&
-                                                event.button.x < x2
+                                                event.button.x >= x1 &&
+                                                event.button.x <= x2
                                             ) ||
                                             (
-                                                event.button.x < x1 &&
-                                                event.button.x > x2
+                                                event.button.x <= x1 &&
+                                                event.button.x >= x2
                                             )
                                         ) &&
                                         (
                                             (
-                                                event.button.y > y1 &&
-                                                event.button.y < y2
+                                                event.button.y >= y1 &&
+                                                event.button.y <= y2
                                             ) ||
                                             (
-                                                event.button.y < y1 &&
-                                                event.button.y > y2
+                                                event.button.y <= y1 &&
+                                                event.button.y >= y2
                                             )
                                         )
                                     )

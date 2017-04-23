@@ -8,5 +8,6 @@
 *.idb
 *.pdb
 *.exe
+*.dll
 *.tlog/
 .vs/
